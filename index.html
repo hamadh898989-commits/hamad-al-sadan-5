@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بنك أسئلة الكيمياء التفاعلي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --easy: #2ecc71;
+            --medium: #f39c12;
+            --hard: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* الترويسة */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 25px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.8;
+        }
+        
+        .welcome-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #f1c40f;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* قسم الاختبارات */
+        .tests-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--secondary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .tests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .test-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--secondary);
+            position: relative;
+        }
+        
+        .test-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .test-header {
+            padding: 25px 25px 15px;
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+        }
+        
+        .test-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .test-title {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .test-desc {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        
+        .test-levels {
+            display: flex;
+            justify-content: center;
+            padding: 0 20px 20px;
+            gap: 10px;
+        }
+        
+        .level-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .level-easy {
+            background-color: var(--easy);
+            color: white;
+        }
+        
+        .level-medium {
+            background-color: var(--medium);
+            color: white;
+        }
+        
+        .level-hard {
+            background-color: var(--hard);
+            color: white;
+        }
+        
+        .level-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+        
+        /* قسم عرض الأسئلة */
+        .quiz-container {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .quiz-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+        
+        .quiz-info {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .quiz-level-badge {
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .quiz-counter {
+            background: var(--secondary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+        }
+        
+        .question-container {
+            margin-bottom: 40px;
+        }
+        
+        .question-number {
+            background: var(--primary);
+            color: white;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .option:hover {
+            background: #e9ecef;
+            border-color: #ced4da;
+        }
+        
+        .option.selected {
+            background: #d1ecf1;
+            border-color: var(--secondary);
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: var(--easy);
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: var(--hard);
+        }
+        
+        .option-letter {
+            background: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .option-text {
+            flex: 1;
+            font-size: 1.1rem;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .next-btn {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .submit-btn {
+            background: var(--easy);
+            color: white;
+        }
+        
+        .nav-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-3px);
+        }
+        
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* قسم النتائج */
+        .results-container {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .results-header {
+            margin-bottom: 40px;
+        }
+        
+        .results-icon {
+            font-size: 5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        .results-title {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(var(--secondary) 0% var(--score-percent), #eee var(--score-percent) 100%);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .score-circle::before {
+            content: "";
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .score-text {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .score-details {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .score-detail {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 150px;
+        }
+        
+        .detail-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+        
+        .detail-label {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .action-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .restart-btn {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .home-btn {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* التذييل */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 15px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .student-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #f1c40f;
+        }
+        
+        .supervisor-name {
+            font-size: 1.2rem;
+            color: #ddd;
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .tests-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .quiz-container, .results-container {
+                padding: 25px;
+            }
+            
+            .quiz-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-btn {
+                width: 100%;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+        }
+        
+        /* شريط التقدم */
+        .progress-bar {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- الترويسة -->
+        <header>
+            <div class="welcome-icon">
+                <i class="fas fa-flask"></i>
+            </div>
+            <h1>مرحباً بك في عالم الكيمياء!</h1>
+            <p>اختباراتنا صممت لتختبر معلوماتك، تنمي مهاراتك، وتجعلك تكتشف أسرار العناصر والتفاعلات. استعد للتحدي وابدأ رحلتك العلمية الآن!</p>
+        </header>
+        
+        <!-- قسم الاختبارات -->
+        <section class="tests-section">
+            <h2 class="section-title">اختر اختبارك الكيميائي</h2>
+            <div class="tests-grid">
+                <!-- اختبار 1: أساسيات الكيمياء -->
+                <div class="test-card">
+                    <div class="test-header">
+                        <div class="test-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <h3 class="test-title">أساسيات الكيمياء</h3>
+                        <p class="test-desc">اختبار يشمل مفاهيم المادة، العناصر، المركبات، والمخاليط</p>
+                    </div>
+                    <div class="test-levels">
+                        <button class="level-btn level-easy" onclick="startTest(1, 'easy')">سهل</button>
+                        <button class="level-btn level-medium" onclick="startTest(1, 'medium')">متوسط</button>
+                        <button class="level-btn level-hard" onclick="startTest(1, 'hard')">صعب</button>
+                    </div>
+                </div>
+                
+                <!-- اختبار 2: حالات المادة والتغيرات -->
+                <div class="test-card">
+                    <div class="test-header">
+                        <div class="test-icon">
+                            <i class="fas fa-vial"></i>
+                        </div>
+                        <h3 class="test-title">حالات المادة والتغيرات</h3>
+                        <p class="test-desc">اختبار عن الخواص الفيزيائية والكيميائية للمواد وتغيراتها</p>
+                    </div>
+                    <div class="test-levels">
+                        <button class="level-btn level-easy" onclick="startTest(2, 'easy')">سهل</button>
+                        <button class="level-btn level-medium" onclick="startTest(2, 'medium')">متوسط</button>
+                        <button class="level-btn level-hard" onclick="startTest(2, 'hard')">صعب</button>
+                    </div>
+                </div>
+                
+                <!-- اختبار 3: الذرة والتركيب الذري -->
+                <div class="test-card">
+                    <div class="test-header">
+                        <div class="test-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <h3 class="test-title">الذرة والتركيب الذري</h3>
+                        <p class="test-desc">أسئلة عن مكونات الذرة والنظريات الذرية والنظائر</p>
+                    </div>
+                    <div class="test-levels">
+                        <button class="level-btn level-easy" onclick="startTest(3, 'easy')">سهل</button>
+                        <button class="level-btn level-medium" onclick="startTest(3, 'medium')">متوسط</button>
+                        <button class="level-btn level-hard" onclick="startTest(3, 'hard')">صعب</button>
+                    </div>
+                </div>
+                
+                <!-- اختبار 4: التركيب الإلكتروني -->
+                <div class="test-card">
+                    <div class="test-header">
+                        <div class="test-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="test-title">التركيب الإلكتروني</h3>
+                        <p class="test-desc">اختبار عن مستويات الطاقة، المدارات، والتوزيع الإلكتروني</p>
+                    </div>
+                    <div class="test-levels">
+                        <button class="level-btn level-easy" onclick="startTest(4, 'easy')">سهل</button>
+                        <button class="level-btn level-medium" onclick="startTest(4, 'medium')">متوسط</button>
+                        <button class="level-btn level-hard" onclick="startTest(4, 'hard')">صعب</button>
+                    </div>
+                </div>
+                
+                <!-- اختبار 5: الجدول الدوري والروابط -->
+                <div class="test-card">
+                    <div class="test-header">
+                        <div class="test-icon">
+                            <i class="fas fa-table"></i>
+                        </div>
+                        <h3 class="test-title">الجدول الدوري والروابط</h3>
+                        <p class="test-desc">أسئلة عن الجدول الدوري، الروابط الكيميائية والأشكال الجزيئية</p>
+                    </div>
+                    <div class="test-levels">
+                        <button class="level-btn level-easy" onclick="startTest(5, 'easy')">سهل</button>
+                        <button class="level-btn level-medium" onclick="startTest(5, 'medium')">متوسط</button>
+                        <button class="level-btn level-hard" onclick="startTest(5, 'hard')">صعب</button>
+                    </div>
+                </div>
+                
+                <!-- اختبار 6: المحاليل والتركيز -->
+                <div class="test-card">
+                    <div class="test-header">
+                        <div class="test-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <h3 class="test-title">المحاليل والتركيز</h3>
+                        <p class="test-desc">اختبار عن المحاليل، المذيبات، الذوبانية، وطرق الفصل</p>
+                    </div>
+                    <div class="test-levels">
+                        <button class="level-btn level-easy" onclick="startTest(6, 'easy')">سهل</button>
+                        <button class="level-btn level-medium" onclick="startTest(6, 'medium')">متوسط</button>
+                        <button class="level-btn level-hard" onclick="startTest(6, 'hard')">صعب</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- قسم عرض الأسئلة -->
+        <section class="quiz-container" id="quiz-container">
+            <div class="quiz-header">
+                <h2 class="quiz-title" id="quiz-title">اختبار أساسيات الكيمياء</h2>
+                <div class="quiz-info">
+                    <div class="quiz-level-badge" id="quiz-level-badge">سهل</div>
+                    <div class="quiz-counter" id="quiz-counter">السؤال 1 من 10</div>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            
+            <div class="question-container">
+                <div class="question-number" id="question-number">السؤال 1</div>
+                <div class="question-text" id="question-text">ما هو تعريف العنصر الكيميائي؟</div>
+                
+                <div class="options-container" id="options-container">
+                    <!-- سيتم ملء الخيارات ديناميكيًا -->
+                </div>
+            </div>
+            
+            <div class="navigation-buttons">
+                <button class="nav-btn prev-btn" id="prev-btn" onclick="prevQuestion()" disabled>السابق</button>
+                <button class="nav-btn next-btn" id="next-btn" onclick="nextQuestion()">التالي</button>
+                <button class="nav-btn submit-btn" id="submit-btn" onclick="submitQuiz()" style="display:none;">إنهاء الاختبار</button>
+            </div>
+        </section>
+        
+        <!-- قسم النتائج -->
+        <section class="results-container" id="results-container">
+            <div class="results-header">
+                <div class="results-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2 class="results-title" id="results-title">نتيجة اختبار الكيمياء</h2>
+            </div>
+            
+            <div class="score-circle" id="score-circle">
+                <div class="score-text" id="score-text">85%</div>
+            </div>
+            
+            <div class="score-details">
+                <div class="score-detail">
+                    <div class="detail-value" id="correct-answers">8</div>
+                    <div class="detail-label">إجابة صحيحة</div>
+                </div>
+                <div class="score-detail">
+                    <div class="detail-value" id="total-questions">10</div>
+                    <div class="detail-label">إجمالي الأسئلة</div>
+                </div>
+                <div class="score-detail">
+                    <div class="detail-value" id="score-percentage">80%</div>
+                    <div class="detail-label">النسبة المئوية</div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn restart-btn" onclick="restartQuiz()">إعادة الاختبار</button>
+                <button class="action-btn home-btn" onclick="goHome()">العودة للرئيسية</button>
+            </div>
+        </section>
+        
+        <!-- التذييل -->
+        <footer>
+            <div class="footer-content">
+                <div class="student-name">عمل الطالب: حمد عبدالرحمان السعدان</div>
+                <div class="supervisor-name">إشراف الأستاذ: عبدالله حمدي</div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // بيانات الاختبارات
+        const tests = {
+            1: {
+                title: "أساسيات الكيمياء",
+                easy: [
+                    {
+                        question: "العنصر هو مادة:",
+                        options: [
+                            "أ) تحتوي على عنصرين",
+                            "ب) لا يمكن تحليلها إلى مواد أبسط (✓)",
+                            "ج) تتغير دائمًا"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "المركب هو مادة تتكون من:",
+                        options: [
+                            "أ) عنصر واحد",
+                            "ب) اتحاد عنصرين أو أكثر كيميائيًا (✓)",
+                            "ج) مخلوط من المعادن"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "يرمز للصوديوم بالرمز:",
+                        options: [
+                            "أ) S",
+                            "ب) Na (✓)",
+                            "ج) N"
+                        ],
+                        correct: 1
+                    }
+                ],
+                medium: [
+                    {
+                        question: "لفصل الكحول عن الماء نستخدم:",
+                        options: [
+                            "أ) الترشيح",
+                            "ب) التسامي",
+                            "ج) التقطير (✓)"
+                        ],
+                        correct: 2
+                    },
+                    {
+                        question: "السبب في إمكانية فصل الملح عن الماء بالتبخير هو:",
+                        options: [
+                            "أ) اختلاف اللون",
+                            "ب) اختلاف درجة الغليان (✓)",
+                            "ج) اختلاف الرائحة"
+                        ],
+                        correct: 1
+                    }
+                ],
+                hard: [
+                    {
+                        question: "عند مقارنة خصائص المخلوط والمركب نجد أن المخلوط يحتفظ:",
+                        options: [
+                            "أ) بخصائص مكوناته (✓)",
+                            "ب) بخاصية جديدة",
+                            "ج) بالبنية البلورية"
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "يعكس قانون النسب الثابتة أن المركب يتكون دائمًا من:",
+                        options: [
+                            "أ) عناصر مختلفة بنسب عشوائية",
+                            "ب) نسب كتلية ثابتة (✓)",
+                            "ج) ذرات مختلفة في كل مرة"
+                        ],
+                        correct: 1
+                    }
+                ]
+            },
+            2: {
+                title: "حالات المادة والتغيرات",
+                easy: [
+                    {
+                        question: "الخاصية التي يمكن ملاحظتها دون تغيير تركيب المادة هي:",
+                        options: [
+                            "أ) الخاصية الكيميائية",
+                            "ب) الخاصية الفيزيائية (✓)",
+                            "ج) الخاصية النووية"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "من أمثلة الخواص الفيزيائية للمادة:",
+                        options: [
+                            "أ) القابلية للاحتراق",
+                            "ب) اللون (✓)",
+                            "ج) التفاعل مع الماء"
+                        ],
+                        correct: 1
+                    }
+                ],
+                medium: [
+                    {
+                        question: "عند مقارنة خاصية الكثافة بين مادتين فإن المادة الأعلى كثافة:",
+                        options: [
+                            "أ) تطفو",
+                            "ب) تغوص (✓)",
+                            "ج) تتبخر"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "السبب في اختلاف شكل السائل عن الصلب هو:",
+                        options: [
+                            "أ) ضعف قوى التجاذب بين الجزيئات في السائل (✓)",
+                            "ب) تغير الكتلة",
+                            "ج) زيادة الحرارة دائمًا"
+                        ],
+                        correct: 0
+                    }
+                ],
+                hard: [
+                    {
+                        question: "عند تحليل العلاقة بين درجة الحرارة وحركة الجسيمات نجد أن الحركة:",
+                        options: [
+                            "أ) تقل مع الزيادة",
+                            "ب) تزداد طرديًا (✓)",
+                            "ج) ثابتة"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "السبب في أن المواد الصلبة لها كثافة أعلى هو:",
+                        options: [
+                            "أ) طاقتها الحركية أعلى",
+                            "ب) جسيماتها متراصة بقوة (✓)",
+                            "ج) عدد إلكتروناتها كبير"
+                        ],
+                        correct: 1
+                    }
+                ]
+            },
+            3: {
+                title: "الذرة والتركيب الذري",
+                easy: [
+                    {
+                        question: "الذرة تُعرّف بأنها:",
+                        options: [
+                            "أ) أصغر جزء من المادة يحتفظ بخصائصها (✓)",
+                            "ب) جسيم لا يتجزأ أبدًا",
+                            "ج) مركب من عناصر"
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "أول من اقترح فكرة أن المادة تتكون من جسيمات صغيرة هو:",
+                        options: [
+                            "أ) أرسطو",
+                            "ب) ديمقريطس (✓)",
+                            "ج) دالتون"
+                        ],
+                        correct: 1
+                    }
+                ],
+                medium: [
+                    {
+                        question: "ذرة تحتوي على 15 بروتون و 16 نيوترون، العدد الكتلي يساوي:",
+                        options: [
+                            "أ) 15",
+                            "ب) 16",
+                            "ج) 31 (✓)"
+                        ],
+                        correct: 2
+                    },
+                    {
+                        question: "إذا كان العدد الذري لعُنصر هو 20، فإن عدد الإلكترونات في ذرة متعادلة يكون:",
+                        options: [
+                            "أ) 10",
+                            "ب) 20 (✓)",
+                            "ج) 40"
+                        ],
+                        correct: 1
+                    }
+                ],
+                hard: [
+                    {
+                        question: "يعطي نموذج رذرفورد دليلًا على أن النواة:",
+                        options: [
+                            "أ) صغيرة الحجم وكثيفة جدًا (✓)",
+                            "ب) كبيرة الحجم",
+                            "ج) تحتوي إلكترونات"
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "تفسير انحراف بعض جسيمات ألفا في تجربة رذرفورد يدل على وجود:",
+                        options: [
+                            "أ) فراغ كبير",
+                            "ب) نواة موجبة الشحنة (✓)",
+                            "ج) إلكترونات ثقيلة"
+                        ],
+                        correct: 1
+                    }
+                ]
+            },
+            4: {
+                title: "التركيب الإلكتروني",
+                easy: [
+                    {
+                        question: "الإلكترون ينتقل بين مستويات الطاقة عندما:",
+                        options: [
+                            "أ) يسخن نواة الذرة",
+                            "ب) يكتسب أو يفقد طاقة (✓)",
+                            "ج) يتغير عدد البروتونات"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "الضوء يُعد شكلًا من أشكال:",
+                        options: [
+                            "أ) المادة",
+                            "ب) الإشعاع الكهرومغناطيسي (✓)",
+                            "ج) الرائحة"
+                        ],
+                        correct: 1
+                    }
+                ],
+                medium: [
+                    {
+                        question: "إذا كان تردد موجة ضوئية 6×10¹⁴ Hz، فإن الطول الموجي يقارب:",
+                        options: [
+                            "أ) 5×10⁻⁷ m (✓)",
+                            "ب) 5×10⁻³ m",
+                            "ج) 5×10² m"
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "عنصر عدده الذري 16، فإن التوزيع الإلكتروني لإلكترونات التكافؤ هو:",
+                        options: [
+                            "أ) s¹",
+                            "ب) p⁴ (✓)",
+                            "ج) d²"
+                        ],
+                        correct: 1
+                    }
+                ],
+                hard: [
+                    {
+                        question: "عند انتقال إلكترون من n=5 إلى n=2 ينتج:",
+                        options: [
+                            "أ) فوتون ذو طاقة منخفضة",
+                            "ب) فوتون ذو طاقة عالية (✓)",
+                            "ج) لا ينتج ضوء"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "تفسير استقرار الغازات النبيلة يعتمد على:",
+                        options: [
+                            "أ) امتلاء المدار s فقط",
+                            "ب) اكتمال مستوى التكافؤ (✓)",
+                            "ج) امتلاك طاقة منخفضة دائمًا"
+                        ],
+                        correct: 1
+                    }
+                ]
+            },
+            5: {
+                title: "الجدول الدوري والروابط",
+                easy: [
+                    {
+                        question: "الجدول الدوري يرتب العناصر حسب:",
+                        options: [
+                            "أ) العدد الكتلي",
+                            "ب) العدد الذري (✓)",
+                            "ج) عدد النظائر"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "الدورة في الجدول الدوري تمثل:",
+                        options: [
+                            "أ) صفًا أفقيًا (✓)",
+                            "ب) عمودًا",
+                            "ج) مجموعة عناصر متشابهة"
+                        ],
+                        correct: 0
+                    }
+                ],
+                medium: [
+                    {
+                        question: "الفرق في الكهروسالبية بين Na و Cl يدل على تكوّن رابطة:",
+                        options: [
+                            "أ) تساهمية",
+                            "ب) أيونية (✓)",
+                            "ج) فلزية"
+                        ],
+                        correct: 1
+                    },
+                    {
+                        question: "إذا كان نصف قطر العنصر A أكبر من B، فهذا يعني أن:",
+                        options: [
+                            "أ) A في أعلى الجدول",
+                            "ب) A في أسفل الجدول (✓)",
+                            "ج) A في يمين الجدول"
+                        ],
+                        correct: 1
+                    }
+                ],
+                hard: [
+                    {
+                        question: "تفسير قوة الرابطة الأيونية يعتمد على علاقة طردية بين:",
+                        options: [
+                            "أ) الشحنة والمسافة (✓)",
+                            "ب) الكتلة والمسافة",
+                            "ج) الكتلة والسرعة"
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "تزداد قوة الرابطة التساهمية كلما كان طول الرابطة:",
+                        options: [
+                            "أ) أكبر",
+                            "ب) أصغر (✓)",
+                            "ج) ثابتًا"
+                        ],
+                        correct: 1
+                    }
+                ]
+            },
+            6: {
+                title: "المحاليل والتركيز",
+                easy: [
+                    {
+                        question: "المخلوط المتجانس يتميز بـ:",
+                        options: [
+                            "أ) تجانس مكوناته (✓)",
+                            "ب) صعوبة ذوبانه",
+                            "ج) انفصال طبقاته"
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "المحلول يتكون من:",
+                        options: [
+                            "أ) مذيب ومذاب (✓)",
+                            "ب) عنصرين",
+                            "ج) غاز فقط"
+                        ],
+                        correct: 0
+                    }
+                ],
+                medium: [
+                    {
+                        question: "زيادة كمية المذاب في المحلول تؤدي إلى:",
+                        options: [
+                            "أ) زيادة تركيزه (✓)",
+                            "ب) تقليل حجمه",
+                            "ج) ثبات كثافته"
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "عند زيادة كمية المذيب فإن تركيز المحلول:",
+                        options: [
+                            "أ) يزداد",
+                            "ب) يقل (✓)",
+                            "ج) يبقى ثابتًا"
+                        ],
+                        correct: 1
+                    }
+                ],
+                hard: [
+                    {
+                        question: "عند مقارنة خصائص المخلوط والمركب نجد أن المخلوط يحتفظ:",
+                        options: [
+                            "أ) بخصائص مكوناته (✓)",
+                            "ب) بخاصية جديدة",
+                            "ج) بالبنية البلورية"
+                        ],
+                        correct: 0
+                    },
+                    {
+                        question: "يعكس قانون النسب الثابتة أن المركب يتكون دائمًا من:",
+                        options: [
+                            "أ) عناصر مختلفة بنسب عشوائية",
+                            "ب) نسب كتلية ثابتة (✓)",
+                            "ج) ذرات مختلفة في كل مرة"
+                        ],
+                        correct: 1
+                    }
+                ]
+            }
+        };
+
+        // متغيرات الحالة
+        let currentTest = null;
+        let currentLevel = null;
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let testResults = {
+            correct: 0,
+            total: 0,
+            percentage: 0
+        };
+
+        // بدء الاختبار
+        function startTest(testId, level) {
+            currentTest = testId;
+            currentLevel = level;
+            currentQuestions = tests[testId][level];
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill(null);
+            
+            // تحديث واجهة الاختبار
+            document.getElementById('quiz-title').textContent = tests[testId].title;
+            
+            // تحديث شارة مستوى الصعوبة
+            const levelBadge = document.getElementById('quiz-level-badge');
+            levelBadge.textContent = level === 'easy' ? 'سهل' : level === 'medium' ? 'متوسط' : 'صعب';
+            levelBadge.className = 'quiz-level-badge ' + (level === 'easy' ? 'level-easy' : level === 'medium' ? 'level-medium' : 'level-hard');
+            
+            // إظهار قسم الاختبار وإخفاء الآخرين
+            document.querySelector('.tests-section').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('results-container').style.display = 'none';
+            
+            // تحميل السؤال الأول
+            loadQuestion();
+        }
+
+        // تحميل السؤال الحالي
+        function loadQuestion() {
+            const question = currentQuestions[currentQuestionIndex];
+            
+            // تحديث رقم السؤال والعنوان
+            document.getElementById('question-number').textContent = `السؤال ${currentQuestionIndex + 1}`;
+            document.getElementById('question-text').textContent = question.question;
+            document.getElementById('quiz-counter').textContent = `السؤال ${currentQuestionIndex + 1} من ${currentQuestions.length}`;
+            
+            // تحديث شريط التقدم
+            const progressPercent = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
+            document.getElementById('progress-fill').style.width = `${progressPercent}%`;
+            
+            // تحميل الخيارات
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[currentQuestionIndex] === index) {
+                    optionElement.classList.add('selected');
+                }
+                
+                optionElement.innerHTML = `
+                    <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                
+                optionElement.onclick = () => selectOption(index);
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // تحديث أزرار التنقل
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex < currentQuestions.length - 1 ? 'block' : 'none';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === currentQuestions.length - 1 ? 'block' : 'none';
+        }
+
+        // اختيار خيار
+        function selectOption(optionIndex) {
+            // إزالة التحديد من جميع الخيارات
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // إضافة التحديد للخيار المختار
+            options[optionIndex].classList.add('selected');
+            
+            // حفظ الإجابة
+            userAnswers[currentQuestionIndex] = optionIndex;
+        }
+
+        // الانتقال للسؤال السابق
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        }
+
+        // الانتقال للسؤال التالي
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuestions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            }
+        }
+
+        // إنهاء الاختبار وعرض النتائج
+        function submitQuiz() {
+            // حساب النتائج
+            let correctCount = 0;
+            
+            currentQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    correctCount++;
+                }
+            });
+            
+            testResults.correct = correctCount;
+            testResults.total = currentQuestions.length;
+            testResults.percentage = Math.round((correctCount / currentQuestions.length) * 100);
+            
+            // عرض النتائج
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('results-container').style.display = 'block';
+            
+            // تحديث بيانات النتائج
+            document.getElementById('results-title').textContent = `نتيجة ${tests[currentTest].title}`;
+            document.getElementById('correct-answers').textContent = correctCount;
+            document.getElementById('total-questions').textContent = currentQuestions.length;
+            document.getElementById('score-percentage').textContent = `${testResults.percentage}%`;
+            document.getElementById('score-text').textContent = `${testResults.percentage}%`;
+            
+            // تحديث دائرة النتيجة
+            const scoreCircle = document.getElementById('score-circle');
+            scoreCircle.style.setProperty('--score-percent', `${testResults.percentage}%`);
+            
+            // إضافة رسالة تشجيعية بناءً على النتيجة
+            let encouragement = "";
+            if (testResults.percentage >= 90) {
+                encouragement = "ممتاز! أنت خبير في الكيمياء!";
+            } else if (testResults.percentage >= 70) {
+                encouragement = "جيد جداً! لديك معرفة قوية في الكيمياء.";
+            } else if (testResults.percentage >= 50) {
+                encouragement = "ليس سيئاً! يمكنك تحسين مستواك بالمزيد من الدراسة.";
+            } else {
+                encouragement = "حاول مرة أخرى! المزيد من الممارسة ستحسن من مستواك.";
+            }
+            
+            // إضافة رسالة التشجيع إذا لم تكن موجودة
+            if (!document.getElementById('encouragement-text')) {
+                const encouragementElement = document.createElement('p');
+                encouragementElement.id = 'encouragement-text';
+                encouragementElement.style.cssText = 'font-size: 1.2rem; color: #666; margin-top: 20px;';
+                encouragementElement.textContent = encouragement;
+                document.querySelector('.results-header').appendChild(encouragementElement);
+            } else {
+                document.getElementById('encouragement-text').textContent = encouragement;
+            }
+        }
+
+        // إعادة الاختبار
+        function restartQuiz() {
+            startTest(currentTest, currentLevel);
+        }
+
+        // العودة للصفحة الرئيسية
+        function goHome() {
+            document.querySelector('.tests-section').style.display = 'block';
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('results-container').style.display = 'none';
+        }
+
+        // تهيئة الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // يمكننا هنا إضافة أي تهيئة إضافية عند تحميل الصفحة
+        });
+    </script>
+</body>
+</html>
